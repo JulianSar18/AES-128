@@ -3,9 +3,10 @@ from SBox import SBox
 from IrreduciblePoly import IrreduciblePoly
 
 class AESOperations:
-    def __init__(self) -> None:
-        s_box_o = SBox()        
-        self.s_box_int = s_box_o.generate("1 + x + x**3 + x**4 + x**8")
+    def __init__(self, poly: str) -> None:
+        s_box_o = SBox()  
+        self.poly = poly      
+        self.s_box_int = s_box_o.generate(self.poly)
         self.s_box_string = s_box_o.s_box_string(self.s_box_int)
         self.s_box = bytearray.fromhex(self.s_box_string) 
         pass

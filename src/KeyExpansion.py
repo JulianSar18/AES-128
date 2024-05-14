@@ -1,9 +1,10 @@
 from AESOperations import AESOperations
 
 class KeyExpansion:
-    @staticmethod
-    def generate_key(key: bytes, nb: int = 4) -> list[list[list[int]]]:
-        aes = AESOperations() 
+    def __init__(self, poly: str) -> None:
+        self.poly = poly
+    def generate_key(self, key: bytes, nb: int = 4) -> list[list[list[int]]]:
+        aes = AESOperations(self.poly) 
         nk = len(key) // 4    
         w = aes.state_from_bytes(key)
         for i in range(nk, nb * (10 + 1)):

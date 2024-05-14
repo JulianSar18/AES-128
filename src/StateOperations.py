@@ -1,12 +1,13 @@
 from AESOperations import AESOperations
 from SBox import SBox 
 class StateOperations:      
-    def __init__(self) -> None:
-        s_box_o = SBox()        
-        self.s_box_int = s_box_o.generate("1 + x + x**3 + x**4 + x**8")
+    def __init__(self, poly: str) -> None:
+        s_box_o = SBox() 
+        self.poly = poly               
+        self.s_box_int = s_box_o.generate(self.poly)
         self.s_box_string = s_box_o.s_box_string(self.s_box_int)
         self.s_box = bytearray.fromhex(self.s_box_string) 
-        self.aes = AESOperations()        
+        self.aes = AESOperations(self.poly)        
         
     def add_round_key(self, state: list[list[int]], key_schedule: list[list[list[int]]], round: int):
         round_key = key_schedule[round]

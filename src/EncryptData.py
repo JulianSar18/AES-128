@@ -14,6 +14,7 @@ class EncryptData:
         return new_plaintext
     def encrypt(self):
         encrypt = AESEncryption(self.poly)
+        print(Fore.CYAN, "Original plain text: ", Style.RESET_ALL, self.plain_text.hex(), "\n")
         ciphertext = encrypt.aes_encryption(self.plain_text, self.key)
         ciphertext_hex = ' '.join('{:02x}'.format(byte) for byte in ciphertext)
         print(Fore.GREEN + '-------------------------------------------------------------')

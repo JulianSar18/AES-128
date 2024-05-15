@@ -24,7 +24,7 @@ class AESOperations:
 
     
     def rcon(self, i: int) -> bytes:
-        rcon_lookup = RoundConstant.generate("1 + x + x**3 + x**4 + x**8")
+        rcon_lookup = RoundConstant.generate(self.poly)
         rcon_value = bytes([rcon_lookup[i-1], 0, 0, 0])
         return rcon_value
 
@@ -36,7 +36,7 @@ class AESOperations:
     def xtime(self, a: int) -> int:
         polynomial = IrreduciblePoly()
         if a & 0x80:
-            return((a<<1)^ polynomial.to_hex("1 + x + x**3 + x**4 + x**8")) & 0xff
+            return((a<<1)^ polynomial.to_hex(self.poly)) & 0xff
         return a << 1
     
     

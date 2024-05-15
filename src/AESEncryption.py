@@ -2,12 +2,12 @@ from AESOperations import AESOperations
 from KeyExpansion import KeyExpansion
 from StateOperations import StateOperations
 class AESEncryption:    
-    def __init__(self) -> None:
-        pass
+    def __init__(self, poly: str) -> None:
+        self.poly = poly
     def aes_encryption(self, data: bytes, key: bytes) -> bytes:
-        aes = AESOperations()
-        key_expansion = KeyExpansion()
-        state_operations = StateOperations()
+        aes = AESOperations(self.poly)
+        key_expansion = KeyExpansion(self.poly)
+        state_operations = StateOperations(self.poly)
         state = aes.state_from_bytes(data)
         key_schedule = key_expansion.generate_key(key)
         state_operations.add_round_key(state, key_schedule, round=0)
